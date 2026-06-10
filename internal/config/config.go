@@ -3,13 +3,13 @@ package config
 import "os"
 
 type Config struct {
-	APIKey string
-	APIURL string
+	BaseURL string
+	APIKey  string
 }
 
 func Load() *Config {
 	return &Config{
-		APIKey: os.Getenv("API_KEY"),
-		APIURL: os.Getenv("API_URL"),
+		BaseURL: os.Getenv("TIKET_BASE_URL"),
+		APIKey:  os.Getenv("TIKET_API_KEY"),
 	}
 }
