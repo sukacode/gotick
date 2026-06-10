@@ -3,33 +3,19 @@ package main
 import (
 	"log"
 
-	"gotick/internal/auth"
-	"gotick/internal/browser"
-	"gotick/internal/event"
+	"gotick/internal/config"
+	"gotick/internal/transport/httpclient"
 )
 
 func main() {
 
-	pw, context, page := browser.Start()
+	cfg := config.Load()
 
-	log.Println("browser started")
+	client := httpclient.New(
+		cfg.BaseURL,
+		cfg.APIKey,
+	)
 
-	_, err := page.Goto("https://www.tiket.com/id-id/to-do/my-chemical-romance-live-in-jakarta-2026?utm_page=toDoSearchResult")
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	log.Println("website opened")
-
-	event.Monitor(page)
-
-	event.WatchBuyButton(page)
-
-	auth.SaveSession(page)
-
-	select {}
-
-	_ = pw
-	_ = context
+	log.Println("base url:", client.BaseURL)
+	log.Println("api key loaded:", client.APIKey != "")
 }
