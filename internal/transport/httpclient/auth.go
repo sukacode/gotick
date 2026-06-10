@@ -1,7 +1,5 @@
 package httpclient
 
-//authentication middleware
-
 import (
 	"context"
 	"net/http"
